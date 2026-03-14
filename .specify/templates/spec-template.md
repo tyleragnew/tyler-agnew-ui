@@ -11,7 +11,12 @@
   IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
   Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
   you should still have a viable MVP (Minimum Viable Product) that delivers value.
-  
+
+  TDD/BDD MANDATE (Constitution II — NON-NEGOTIABLE):
+  The Acceptance Scenarios below (Given/When/Then) are the PRIMARY design artifact.
+  They MUST be committed as failing tests before ANY implementation code is written.
+  The Red-Green-Refactor cycle begins here.
+
   Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
   Think of each story as a standalone slice of functionality that can be:
   - Developed independently

@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ─────────────────────────────────────────────────────────
+   Single source of truth for all colors, typography, and spacing.
+   RULE: No hardcoded color or font-family values outside this file.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Colors */
+  --color-background: #fafaf8;
+  --color-surface: #ffffff;
+  --color-text-primary: #111110;
+  --color-text-secondary: #6b6b67;
+  --color-accent: #d97706;
+  --color-accent-hover: #b45309;
+  --color-border: #e5e5e3;
+}
+
+/* Font tokens reference CSS variables injected by next/font onto <html>.
+   Use @theme inline so Tailwind knows these reference other CSS variables. */
+@theme inline {
+  --font-display: var(--font-milker);
+  --font-body: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ─── Base Resets ────────────────────────────────────────────────────────── */
+
+html {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Reduced Motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
