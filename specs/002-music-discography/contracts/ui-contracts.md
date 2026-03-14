@@ -23,10 +23,9 @@
 
 | State    | Appearance |
 |----------|-----------|
-| Default  | Standard card with border |
-| Hover    | Border colour shifts to `--color-accent` |
-| Selected | Visual indicator (accent border or filled state) distinguishing the currently playing release |
-| Loading  | Skeleton placeholder matching card dimensions |
+| Default  | Row with thumbnail, metadata, and a down-chevron indicator |
+| Selected | Chevron rotates 180° (pointing up); inline player expands below the row |
+| Loading  | Skeleton placeholder matching row dimensions |
 
 ### Test Scenarios
 
@@ -40,17 +39,15 @@
 
 ---
 
-## MUSIC-UI-02: Discography Grid
+## MUSIC-UI-02: Discography List
 
-**Purpose**: Responsive grid container for all release cards.
+**Purpose**: Vertically stacked, year-grouped list of release rows.
 
 ### Layout
 
-| Viewport | Columns |
-|----------|---------|
-| 320px (mobile)  | 2 columns |
-| 768px (tablet)  | 3–4 columns |
-| 1280px (desktop)| 4–5 columns |
+- Single-column list grouped by release year (descending)
+- Each year has a small-caps heading label
+- Rows are divided by a subtle border
 
 ### Loading State
 
@@ -71,7 +68,7 @@
 
 **MUSIC-UI-02-T3**: After data loads, skeleton cards are replaced by release cards.
 
-**MUSIC-UI-02-T4**: The grid contains cards from all seven artist projects.
+**MUSIC-UI-02-T4**: The list contains cards from all ten artist projects.
 
 ---
 
@@ -82,9 +79,9 @@
 ### Behaviour
 
 - Hidden when no release is selected (`selectedRelease === null`)
-- Visible as a fixed bottom bar when a release is selected
-- Main content area gets bottom padding equal to player height when player is active
-- Selecting a new release replaces the current player (no multiple simultaneous players)
+- Expands inline below the selected release row (accordion pattern)
+- Selecting a new release collapses the previous player and expands the new one
+- Selecting the same release a second time collapses the player
 
 ### Required Elements
 
@@ -113,7 +110,7 @@
 
 **MUSIC-UI-03-T5**: Clicking the close button hides the player.
 
-**MUSIC-UI-03-T6**: The player is fixed at the bottom of the viewport and does not cause the release grid to reflow on open/close (only bottom padding changes).
+**MUSIC-UI-03-T6**: The player expands inline below the selected row and does not affect the position of other rows outside the accordion.
 
 ---
 

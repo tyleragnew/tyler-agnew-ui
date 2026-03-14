@@ -12,26 +12,20 @@ export default function BandcampPlayer({
   return (
     <div
       data-testid="bandcamp-player"
-      className="fixed bottom-0 left-0 right-0 bg-(--color-surface) border-t border-(--color-border) z-50"
+      className="px-4 pb-3"
     >
-      {/* Context row */}
-      <div className="flex items-center justify-between px-4 pt-2 pb-1">
-        <div className="min-w-0">
-          <p className="text-sm font-semibold text-(--color-text-primary) truncate">
-            {release.title}
-          </p>
-          <p className="text-xs text-(--color-text-secondary) truncate">
-            {release.artistName}
-          </p>
-        </div>
+      <div className="flex items-center justify-between pb-1 px-1">
+        <p className="text-xs text-(--color-text-secondary) truncate">
+          {release.title} — {release.artistName}
+        </p>
         <button
           aria-label="Close player"
           onClick={onClose}
-          className="ml-4 flex-shrink-0 w-8 h-8 flex items-center justify-center rounded text-(--color-text-secondary) hover:text-(--color-text-primary) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-accent) transition-colors"
+          className="ml-3 flex-shrink-0 w-6 h-6 flex items-center justify-center rounded text-(--color-text-secondary) hover:text-(--color-text-primary) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-accent) transition-colors"
         >
           <svg
-            width="16"
-            height="16"
+            width="12"
+            height="12"
             viewBox="0 0 16 16"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -47,14 +41,13 @@ export default function BandcampPlayer({
         </button>
       </div>
 
-      {/* Iframe */}
       <iframe
         src={release.embedUrl}
         title={`${release.title} by ${release.artistName} player`}
         width="100%"
         height="120"
         allow="autoplay"
-        className="block border-0"
+        className="block border-0 rounded"
       />
     </div>
   );

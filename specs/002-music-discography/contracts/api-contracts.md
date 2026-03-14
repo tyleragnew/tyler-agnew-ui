@@ -7,7 +7,7 @@
 
 ## MUSIC-API-01: GET /api/music
 
-**Purpose**: Returns the merged, sorted discography from all seven artist projects.
+**Purpose**: Returns the merged, sorted discography from all ten artist projects.
 
 ### Request
 
@@ -50,11 +50,12 @@ The response is indistinguishable from a live response to the caller.
 
 | Scenario | Behaviour |
 |----------|-----------|
-| First request after cold start | Fetches all 7 sources, caches result for 24h |
+| First request after cold start | Fetches all 10 sources, caches result for 24h |
 | Requests within 24h window | Returns cached data instantly |
 | First request after 24h expiry | Returns stale cached data; triggers background refresh |
 | Partial source failure | Returns releases from successful sources + empty from failed |
 | Total source failure | Returns static fallback from `lib/music-fallback.json` |
+| Release missing `releaseDate` | Falls back to `lib/music-fallback.json` by ID; if still missing, fetches via `album.getInfo` |
 
 ### Test Scenarios
 

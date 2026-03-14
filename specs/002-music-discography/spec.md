@@ -17,7 +17,7 @@
 ### User Story 1 - Browse the Full Discography (Priority: P1)
 
 A visitor arrives at the Music page and immediately sees a unified view of all releases
-across Tyler's seven musical projects — cover art, artist name, title, and release year
+across Tyler's eight musical projects — cover art, artist name, title, and release year
 — sorted from newest to oldest. They can take in the full creative output at a glance
 without having to visit each project's page separately.
 
@@ -26,7 +26,7 @@ without having to visit each project's page separately.
 Without a browsable discography, the page has no content at all.
 
 **Independent Test**: Can be fully tested by visiting `/music`, confirming releases from
-all seven artists appear, checking that each release shows cover art, artist name, title,
+all ten artists appear, checking that each release shows cover art, artist name, title,
 and year, and verifying the list is sorted newest-first.
 
 **Acceptance Scenarios**:
@@ -41,8 +41,8 @@ and year, and verifying the list is sorted newest-first.
    across cards, **Then** releases are ordered from most recent to oldest.
 
 4. **Given** the discography grid is visible, **When** the visitor scans the artist names,
-   **Then** releases from all seven projects — Tyler Agnew, Scarry Burdz, Howling Boil,
-   Blue Plutos, Toy Factory, Pesci Devito, and Covered Bridges — are represented.
+   **Then** releases from all ten projects — Tyler Agnew, Scarry Burdz, Howling Boil,
+   Blue Plutos, Toy Factory, Pesci Devito, Covered Bridges, Luz & Agnew, The Watermelons, and Busy Beds — are represented.
 
 5. **Given** a visitor uses a screen reader, **When** they navigate the discography,
    **Then** each release card is fully accessible with meaningful labels for all elements.
@@ -130,8 +130,8 @@ the page still renders with a graceful fallback state rather than an error.
 
 ### Functional Requirements
 
-- **FR-001**: The Music page MUST display a browsable grid of all releases across all
-  seven artist projects.
+- **FR-001**: The Music page MUST display a browsable list of all releases across all
+  ten artist projects.
 - **FR-002**: Each release card MUST display: cover art, artist name, album title, and
   release year.
 - **FR-003**: Releases MUST be sorted in descending order by release date (newest first).
@@ -165,7 +165,7 @@ the page still renders with a graceful fallback state rather than an error.
 
 ### Measurable Outcomes
 
-- **SC-001**: All releases from all seven artists are visible on the Music page in a
+- **SC-001**: All releases from all ten artists are visible on the Music page in a
   single visit — no pagination or separate pages required.
 - **SC-002**: A visitor can go from landing on the Music page to streaming a release
   in two interactions or fewer (view page → click release).
@@ -182,7 +182,7 @@ the page still renders with a graceful fallback state rather than an error.
 
 ## Assumptions
 
-- The seven artist Bandcamp pages are the authoritative source for Tyler's releases;
+- The ten artist Bandcamp pages are the authoritative source for Tyler's releases;
   no other platforms need to be included in this feature.
 - All releases are public and can be streamed via Bandcamp's official embed mechanism;
   pay-gated or download-only releases are out of scope.

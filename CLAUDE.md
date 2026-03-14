@@ -3,6 +3,8 @@
 Auto-generated from all feature plans. Last updated: 2026-03-14
 
 ## Active Technologies
+- TypeScript 5.x (strict mode) (002-music-discography)
+- `lib/music-fallback.json` (static fallback, in-repo) (002-music-discography)
 
 - TypeScript 5.x (`strict: true`) + Next.js 15 (App Router), Tailwind CSS v4 (`@tailwindcss/postcss`), Vitest + React Testing Library (unit), Playwright (E2E/BDD acceptance) (001-site-init)
 
@@ -37,6 +39,7 @@ npm run lint:css     # Stylelint (enforces design token usage)
 - Given/When/Then format in Playwright test descriptions (no Cucumber.js)
 
 ## Recent Changes
+- 002-music-discography: Added TypeScript 5.x (strict mode)
 
 - 001-site-init: Added TypeScript 5.x (`strict: true`) + Next.js 15 (App Router), Tailwind CSS v4 (`@tailwindcss/postcss`), Vitest + React Testing Library (unit), Playwright (E2E/BDD acceptance)
 

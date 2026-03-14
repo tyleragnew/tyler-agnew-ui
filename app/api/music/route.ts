@@ -18,34 +18,69 @@ const getDiscography = unstable_cache(
       .filter((r) => r.status === "fulfilled")
       .flatMap((r) => (r as PromiseFulfilledResult<unknown[]>).value)
       .filter((item): item is Record<string, unknown> => {
+        const type = (item as Record<string, unknown>)?.type;
         return (
           typeof item === "object" &&
           item !== null &&
-          (item as Record<string, unknown>).type === "album"
+          (type === "album" || type === "track")
         );
       })
-      .map((album) => {
-        const id = album.id as number;
-        const artist = album.artist as
+      .map((item) => {
+        const id = item.id as number;
+        const type = item.type as "album" | "track";
+        const artist = item.artist as
           | { name?: string; url?: string }
           | undefined;
         return {
           id,
-          title: (album.name as string) ?? "",
+          title: (item.name as string) ?? "",
           artistName: artist?.name ?? "",
           artistUrl: artist?.url as string | undefined,
-          releaseDate: (album.releaseDate as string) ?? "",
-          imageUrl: album.imageUrl as string | undefined,
-          url: album.url as string | undefined,
-          embedUrl: buildEmbedUrl(id),
+          releaseDate: (item.releaseDate as string) ?? "",
+          imageUrl: item.imageUrl as string | undefined,
+          url: item.url as string | undefined,
+          embedUrl: buildEmbedUrl(id, type),
         };
       });
 
     if (releases.length === 0) return fallbackData as Release[];
 
-    return releases.sort(
+    const fallbackById = new Map(
+      (fallbackData as Release[]).map((r) => [r.id, r.releaseDate])
+    );
+
+    const afterFallback = releases.map((r) =>
+      r.releaseDate ? r : { ...r, releaseDate: fallbackById.get(r.id) ?? "" }
+    );
+
+    // For releases still missing a date, fetch info individually
+    const needsDates = afterFallback.filter((r) => !r.releaseDate && r.url);
+    if (needsDates.length > 0) {
+      const infoResults = await Promise.allSettled(
+        needsDates.map((r) =>
+          r.url?.includes("/track/")
+            ? bcfetch.track.getInfo({ trackUrl: r.url! })
+            : bcfetch.album.getInfo({ albumUrl: r.url! })
+        )
+      );
+      const dateById = new Map<number, string>();
+      infoResults.forEach((result, i) => {
+        if (result.status === "fulfilled" && result.value.releaseDate) {
+          dateById.set(needsDates[i].id, result.value.releaseDate as string);
+        }
+      });
+      afterFallback.forEach((r, i) => {
+        if (!r.releaseDate) {
+          const date = dateById.get(r.id);
+          if (date) afterFallback[i] = { ...r, releaseDate: date };
+        }
+      });
+    }
+
+    return afterFallback.sort(
       (a, b) =>
-        new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
+        new Date(b.releaseDate || 0).getTime() -
+        new Date(a.releaseDate || 0).getTime()
     );
   },
   ["discography"],

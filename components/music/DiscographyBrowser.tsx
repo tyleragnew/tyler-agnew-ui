@@ -6,7 +6,19 @@ import ReleaseCard from "./ReleaseCard";
 import ReleaseSkeleton from "./ReleaseSkeleton";
 import BandcampPlayer from "./BandcampPlayer";
 
-const SKELETON_COUNT = 10;
+const SKELETON_COUNT = 8;
+
+function groupByYear(releases: Release[]): [number, Release[]][] {
+  const map = new Map<number, Release[]>();
+  for (const r of releases) {
+    const year = r.releaseDate
+      ? new Date(r.releaseDate).getFullYear()
+      : 0;
+    if (!map.has(year)) map.set(year, []);
+    map.get(year)!.push(r);
+  }
+  return [...map.entries()].sort((a, b) => b[0] - a[0]);
+}
 
 export default function DiscographyBrowser() {
   const [releases, setReleases] = useState<Release[]>([]);
@@ -25,29 +37,50 @@ export default function DiscographyBrowser() {
       });
   }, []);
 
-  return (
-    <div className={selectedRelease ? "pb-[180px]" : ""}>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {loading
-          ? Array.from({ length: SKELETON_COUNT }).map((_, i) => (
-              <ReleaseSkeleton key={i} />
-            ))
-          : releases.map((release) => (
-              <ReleaseCard
-                key={release.id}
-                release={release}
-                isSelected={selectedRelease?.id === release.id}
-                onClick={() => setSelectedRelease(release)}
-              />
-            ))}
-      </div>
+  function handleCardClick(release: Release) {
+    setSelectedRelease(
+      selectedRelease?.id === release.id ? null : release
+    );
+  }
 
-      {selectedRelease && (
-        <BandcampPlayer
-          release={selectedRelease}
-          onClose={() => setSelectedRelease(null)}
-        />
-      )}
+  if (loading) {
+    return (
+      <div>
+        {Array.from({ length: SKELETON_COUNT }).map((_, i) => (
+          <ReleaseSkeleton key={i} />
+        ))}
+      </div>
+    );
+  }
+
+  const groups = groupByYear(releases);
+
+  return (
+    <div className="space-y-8">
+      {groups.map(([year, yearReleases]) => (
+        <section key={year}>
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-(--color-text-secondary) mb-1 px-4">
+            {year || "Unknown"}
+          </h2>
+          <div className="divide-y divide-(--color-border)">
+            {yearReleases.map((release) => (
+              <div key={release.id}>
+                <ReleaseCard
+                  release={release}
+                  isSelected={selectedRelease?.id === release.id}
+                  onClick={() => handleCardClick(release)}
+                />
+                {selectedRelease?.id === release.id && (
+                  <BandcampPlayer
+                    release={selectedRelease}
+                    onClose={() => setSelectedRelease(null)}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }

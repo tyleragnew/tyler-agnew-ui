@@ -23,26 +23,22 @@ export default function ReleaseCard({
       data-selected={isSelected ? "true" : undefined}
       aria-label={`Play ${release.title} by ${release.artistName}`}
       onClick={onClick}
-      className={`group w-full text-left rounded-lg overflow-hidden border transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-accent) ${
-        isSelected
-          ? "border-(--color-accent)"
-          : "border-(--color-border) hover:border-(--color-accent)"
-      }`}
+      className="w-full flex items-center gap-5 px-6 py-5 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--color-accent)"
     >
-      {/* Cover art */}
-      <div className="aspect-square relative bg-(--color-border)">
+      {/* Thumbnail */}
+      <div className="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden bg-(--color-border)">
         {release.imageUrl ? (
           <Image
             src={release.imageUrl}
-            alt={`${release.title} by ${release.artistName} cover art`}
-            width={300}
-            height={300}
+            alt={`${release.title} cover art`}
+            width={80}
+            height={80}
             className="object-cover w-full h-full"
           />
         ) : (
           <div
             data-testid="cover-placeholder"
-            className="absolute inset-0 flex items-center justify-center text-(--color-text-secondary) text-xl font-bold"
+            className="w-full h-full flex items-center justify-center text-(--color-text-secondary) text-sm font-bold"
           >
             {release.artistName
               .split(" ")
@@ -54,28 +50,52 @@ export default function ReleaseCard({
         )}
       </div>
 
-      {/* Card text */}
-      <div className="p-3 space-y-0.5">
+      {/* Metadata */}
+      <div className="flex-1 min-w-0">
         <p
           data-testid="card-title"
-          className="text-sm font-semibold text-(--color-text-primary) leading-tight line-clamp-2"
+          className="text-base font-semibold text-(--color-text-primary) truncate"
         >
           {release.title}
         </p>
         <p
           data-testid="card-artist"
-          className="text-xs text-(--color-text-secondary)"
+          className="text-sm text-(--color-text-secondary) truncate mt-0.5"
         >
           {release.artistName}
         </p>
         {year !== null && (
           <p
             data-testid="card-year"
-            className="text-xs text-(--color-text-secondary)"
+            className="text-sm text-(--color-text-secondary) mt-0.5"
           >
             {year}
           </p>
         )}
+      </div>
+
+      {/* Chevron */}
+      <div
+        aria-hidden="true"
+        className={`flex-shrink-0 text-(--color-text-secondary) transition-transform duration-200 ${
+          isSelected ? "rotate-180" : ""
+        }`}
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M5 7.5L10 12.5L15 7.5"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       </div>
     </button>
   );
