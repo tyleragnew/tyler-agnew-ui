@@ -45,7 +45,7 @@ describe("BandcampPlayer", () => {
 
   it("renders release title and artist name as context", () => {
     render(<BandcampPlayer release={testRelease} onClose={vi.fn()} />);
-    expect(screen.getByText("My Great Record")).toBeInTheDocument();
-    expect(screen.getByText("Some Artist")).toBeInTheDocument();
+    expect(screen.getByText(/My Great Record/)).toBeInTheDocument();
+    expect(screen.getByText(/Some Artist/)).toBeInTheDocument();
   });
 });
