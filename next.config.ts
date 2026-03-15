@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "f4.bcbits.com" },
     ],
   },
+  turbopack: {
+    root: __dirname,
+  },
 };
 
 export default nextConfig;
