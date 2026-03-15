@@ -51,10 +51,33 @@ jobs:
       - name: Run unit tests
         run: npm run test
 
-  integration-test:
-    name: Integration Tests
+  deploy:
+    name: Deploy to Vercel (Preview)
     runs-on: ubuntu-latest
-    needs: lint
+    needs: unit-test
+    outputs:
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        id: deploy
+        run: |
+          npm install -g vercel
+          DEPLOY_URL=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes 2>/dev/null)
+          echo "url=$DEPLOY_URL" >> $GITHUB_OUTPUT
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+  integration-test:
+    name: Integration Tests (${{ matrix.shard }}/${{ strategy.job-total }})
+    runs-on: ubuntu-latest
+    needs: deploy
+    strategy:
+      matrix:
+        shard: [1, 2, 3, 4, 5]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -78,4 +101,6 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run integration tests
-        run: npm run test:e2e
+        run: npx playwright test --shard=${{ matrix.shard }}/5
+        env:
+          PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.url }}
