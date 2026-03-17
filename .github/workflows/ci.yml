@@ -51,30 +51,10 @@ jobs:
       - name: Run unit tests
         run: npm run test
 
-  deploy:
-    name: Deploy to Vercel (Preview)
-    runs-on: ubuntu-latest
-    needs: unit-test
-    outputs:
-      url: ${{ steps.deploy.outputs.url }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Deploy to Vercel
-        id: deploy
-        run: |
-          npm install -g vercel
-          DEPLOY_URL=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --yes 2>/dev/null)
-          echo "url=$DEPLOY_URL" >> $GITHUB_OUTPUT
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-
   integration-test:
     name: Integration Tests (${{ matrix.shard }}/${{ strategy.job-total }})
     runs-on: ubuntu-latest
-    needs: deploy
+    needs: unit-test
     strategy:
       matrix:
         shard: [1, 2, 3, 4, 5]
@@ -109,4 +89,4 @@ jobs:
       - name: Run integration tests
         run: npx playwright test --shard=${{ matrix.shard }}/5
         env:
-          PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.url }}
+          PLAYWRIGHT_BASE_URL: https://tyler-agnew-site.vercel.app
