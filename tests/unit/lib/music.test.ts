@@ -25,8 +25,8 @@ describe("buildEmbedUrl", () => {
 });
 
 describe("ARTIST_URLS", () => {
-  it("has exactly 7 entries", () => {
-    expect(ARTIST_URLS).toHaveLength(7);
+  it("has exactly 10 entries", () => {
+    expect(ARTIST_URLS).toHaveLength(10);
   });
 
   it("every entry starts with https://", () => {
@@ -35,7 +35,7 @@ describe("ARTIST_URLS", () => {
     }
   });
 
-  it("contains the 7 known artist Bandcamp URLs", () => {
+  it("contains the 10 known artist Bandcamp URLs", () => {
     const urls = Array.from(ARTIST_URLS);
     expect(urls).toContain("https://tyleragnew.bandcamp.com");
     expect(urls).toContain("https://scarryburdz.bandcamp.com");
@@ -44,6 +44,9 @@ describe("ARTIST_URLS", () => {
     expect(urls).toContain("https://toyfactory.bandcamp.com");
     expect(urls).toContain("https://pescidevito.bandcamp.com");
     expect(urls).toContain("https://coveredbridges.bandcamp.com");
+    expect(urls).toContain("https://luzagnew.bandcamp.com");
+    expect(urls).toContain("https://the-watermelons.bandcamp.com");
+    expect(urls).toContain("https://busybeds.bandcamp.com");
   });
 });
 
