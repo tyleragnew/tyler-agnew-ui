@@ -10,9 +10,12 @@ export const metadata: Metadata = {
 export default function MusicPage() {
   return (
     <main className="px-6 py-12 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold text-(--color-text-primary) mb-8">
+      <h1 className="text-3xl font-bold text-(--color-text-primary) mb-2">
         Music
       </h1>
+      <p className="text-(--color-text-secondary) mb-8">
+        Music I&apos;ve made across a handful of projects over the years.
+      </p>
       <DiscographyBrowser />
     </main>
   );

@@ -13,6 +13,10 @@
     "lint:css": "stylelint \"**/*.css\" --ignore-path .gitignore"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^7.3.9",
+    "@mui/x-charts": "^8.27.5",
     "bandcamp-fetch": "^3.0.0",
     "next": "15.5.12",
     "react": "19.1.0",
