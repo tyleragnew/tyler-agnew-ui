@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1001,
+    "dateAdded": "2025-01-10T00:00:00.000Z",
+    "title": "Structures from Silence",
+    "year": 1984,
+    "artistName": "Steve Roach",
+    "label": "Fortuna Records",
+    "format": "Vinyl",
+    "thumb": "",
+    "coverImage": ""
+  },
+  {
+    "id": 1002,
+    "dateAdded": "2025-02-01T00:00:00.000Z",
+    "title": "Music for Airports",
+    "year": 1978,
+    "artistName": "Brian Eno",
+    "label": "Ambient",
+    "format": "Vinyl",
+    "thumb": "",
+    "coverImage": ""
+  },
+  {
+    "id": 1003,
+    "dateAdded": "2025-02-20T00:00:00.000Z",
+    "title": "Kind of Blue",
+    "year": 1959,
+    "artistName": "Miles Davis",
+    "label": "Columbia",
+    "format": "Vinyl",
+    "thumb": "",
+    "coverImage": ""
+  },
+  {
+    "id": 1004,
+    "dateAdded": "2025-03-01T00:00:00.000Z",
+    "title": "Selected Ambient Works Volume II",
+    "year": 1994,
+    "artistName": "Aphex Twin",
+    "label": "Warp Records",
+    "format": "Vinyl",
+    "thumb": "",
+    "coverImage": ""
+  },
+  {
+    "id": 1005,
+    "dateAdded": "2025-03-10T00:00:00.000Z",
+    "title": "The Disintegration Loops",
+    "year": 2002,
+    "artistName": "William Basinski",
+    "label": "2062",
+    "format": "Vinyl",
+    "thumb": "",
+    "coverImage": ""
+  }
+]
